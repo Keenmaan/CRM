@@ -1,0 +1,18 @@
+@(form: Form[Application.RegisterData])
+@header()
+<div class="container">
+@helper.form(routes.Application.register, 'class -> "form-signin") {
+    <h2 class="form-signin-heading">Register</h2>
+    <input class="form-control" type="txt" name="name" placeholder="Name" value="@form("name").value">
+    <input class="form-control" type="password" name="password" placeholder="Password">
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
+    @if(form.hasGlobalErrors) {
+        <div class="alert alert-danger">
+
+            <a href="#" class="close" data-dismiss="alert">&times;</a>
+            <strong>Error</strong>@form.globalError.message
+        </div>
+    }
+}
+</div>
+@footer()
