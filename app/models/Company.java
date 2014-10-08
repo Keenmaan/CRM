@@ -16,14 +16,14 @@ public class Company extends Model {
     private String phone;
     //private Long contactId;
 
-    @ManyToOne
-    public Contact contact;
+   // @ManyToOne
+   // public Contact contact;
 
     public Company(String name, String email, String phone, Long contactId) {
-        this.name = name;
-        this.email=email;
-        this.phone=phone;
+       // this.name = name;
+        //this.email=email;
+        //this.phone=phone;
         //this.contactId=contactId;
-        this.save();
+        //this.save();
     }
 }

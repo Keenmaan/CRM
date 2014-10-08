@@ -3,8 +3,6 @@ package models;
 import play.db.ebean.Model;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Collection;
 
 @Entity
 public class Contact extends Model {
@@ -22,16 +20,51 @@ public class Contact extends Model {
     @ManyToOne
     public User user;
 
-    @OneToMany(targetEntity=Company.class, mappedBy="contact")
-    public Collection companies;
+    public String getName() {
+        return name;
+    }
 
-    public Contact(String name, String surname, String email, Long userId) {
+    public void setName(String name) {
         this.name = name;
-        this.surname=surname;
-        this.email=email;
-        this.companies=new ArrayList<Company>();
-       // this.userId=userId;
+    }
 
-        this.save();
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhotoId() {
+        return photoId;
+    }
+
+    public void setPhotoId(String photoId) {
+        this.photoId = photoId;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+//@OneToMany(targetEntity=Company.class, mappedBy="contact")
+    //public Collection companies;
+
+    public Contact() {
+       // this.companies=new ArrayList<Company>();
+       // this.userId=userId;
+       // this.save();
     }
 }

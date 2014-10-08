@@ -42,7 +42,9 @@ public class Application extends Controller {
             return badRequest(register.render(registerDataForm));
         }
         else{
-            User user=new User(registerDataForm.get().name,registerDataForm.get().password);
+            User user=new User();
+            user.setName(registerDataForm.get().name);
+            user.setPassword(registerDataForm.get().password);
             //session().clear();
             //session("name",registerDataForm.get().name);
             //return redirect(routes.Application.index());

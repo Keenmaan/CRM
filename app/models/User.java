@@ -26,11 +26,44 @@ public class User extends Model {
     @OneToMany(targetEntity=Contact.class, mappedBy="user")
     public Collection contacts;
 
-    public User(String userName, String password) {
-        this.name = userName;
+    public Long getId() {
+        return id;
+    }
+
+    public Collection getContacts() {
+        return contacts;
+    }
+
+    public void addContact(Contact contact) {
+        this.contacts.add(contact);
+        contact.setUser(this);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
         this.password = Hasher.getHash(password, "md5");
+    }
+
+    public void setContacts(Collection contacts) {
+        this.contacts = contacts;
+    }
+
+    public User() {
+      //  this.name = userName;
+      //  this.password = Hasher.getHash(password, "md5");
         this.contacts=new ArrayList<Contact>();
-        this.save();
+      //  this.save();
     }
 
     public static User authenticate(String name, String password) {
