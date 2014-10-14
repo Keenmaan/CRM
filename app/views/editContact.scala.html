@@ -1,0 +1,19 @@
+@(form: Form[Contact], contact: Contact)
+
+@main {
+    @helper.form(action = routes.Application.saveContact(contact.id), 'class -> "form-signin") {
+        <h2 class="form-signin-heading">Edit contact</h2>
+        <input class="form-control" type="txt" name="name" placeholder="Name" value="@contact.name">
+        <input class="form-control" type="txt" name="surname" placeholder="Surname" value="@contact.surname">
+        <input class="form-control" type="email" name="email" placeholder="Email" value="@contact.email">
+        <input class="form-control" type="txt" name="companyName" placeholder="companyName" value="@contact.companyName">
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Save contact</button>
+        @if(form.hasGlobalErrors) {
+            <div class="alert alert-danger">
+
+                <a href="#" class="close" data-dismiss="alert">&times;</a>
+                <strong>Error</strong>@form.globalError.message
+            </div>
+        }
+    }
+}

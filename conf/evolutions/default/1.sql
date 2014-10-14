@@ -3,20 +3,12 @@
 
 # --- !Ups
 
-create table company (
-  id                        bigint auto_increment not null,
-  name                      varchar(255),
-  email                     varchar(255),
-  phone                     varchar(255),
-  constraint pk_company primary key (id))
-;
-
 create table contact (
   id                        bigint auto_increment not null,
   name                      varchar(255),
   surname                   varchar(255),
   email                     varchar(255),
-  photo_id                  varchar(255),
+  company_name              varchar(255),
   user_id                   bigint,
   constraint pk_contact primary key (id))
 ;
@@ -25,6 +17,9 @@ create table user (
   id                        bigint auto_increment not null,
   name                      varchar(255),
   password                  varchar(255),
+  is_admin                  boolean not null,
+  photo                     varchar(255),
+  constraint uq_user_name unique (name),
   constraint pk_user primary key (id))
 ;
 
@@ -36,8 +31,6 @@ create index ix_contact_user_1 on contact (user_id);
 # --- !Downs
 
 SET REFERENTIAL_INTEGRITY FALSE;
-
-drop table if exists company;
 
 drop table if exists contact;
 

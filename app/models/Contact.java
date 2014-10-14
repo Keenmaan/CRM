@@ -14,8 +14,7 @@ public class Contact extends Model {
     public String name;
     public String surname;
     public String email;
-    public String photoId;
-   // public Long userId;
+    public String companyName;
 
     @ManyToOne
     public User user;
@@ -44,14 +43,6 @@ public class Contact extends Model {
         this.email = email;
     }
 
-    public String getPhotoId() {
-        return photoId;
-    }
-
-    public void setPhotoId(String photoId) {
-        this.photoId = photoId;
-    }
-
     public User getUser() {
         return user;
     }
@@ -59,12 +50,8 @@ public class Contact extends Model {
     public void setUser(User user) {
         this.user = user;
     }
-//@OneToMany(targetEntity=Company.class, mappedBy="contact")
-    //public Collection companies;
 
-    public Contact() {
-       // this.companies=new ArrayList<Company>();
-       // this.userId=userId;
-       // this.save();
-    }
+    public static Finder<Long,Contact> find = new Finder<Long,Contact>(
+            Long.class, Contact.class
+    );
 }

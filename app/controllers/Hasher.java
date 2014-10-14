@@ -7,6 +7,8 @@ public class Hasher {
 
     public static String getHash(String txt, String hashType) {
         try {
+            if (txt.isEmpty())
+                System.out.println("KUPA");
             java.security.MessageDigest md = java.security.MessageDigest.getInstance(hashType);
             byte[] array = md.digest(txt.getBytes());
             StringBuffer sb = new StringBuffer();

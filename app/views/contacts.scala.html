@@ -1,0 +1,27 @@
+@(contacts: List[Contact], user: User)
+
+@main {
+    <table>
+        <thead>
+            <tr>
+                <th>name</th>
+                <th>surname</th>
+                <th>email</th>
+                <th>company name</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        @for(p <- contacts) {
+            <tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#d4e3e5';">
+                <td>@p.name</td>
+                <td>@p.surname</td>
+                <td>@p.email</td>
+                <td>@p.companyName</td>
+                <td><a href="/delete?Id=@p.id">delete</a> <a href="/editContact?Id=@p.id">edit</a> </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+    <a href="/addContact">add</a>
+}

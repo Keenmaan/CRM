@@ -1,0 +1,23 @@
+@(users: List[User])
+
+@main {
+    <table>
+        <thead>
+            <tr>
+                <th>id</th>
+                <th>name</th>
+                @*<th>email</th>*@
+                @*<th>actions</th>*@
+            </tr>
+        </thead>
+        <tbody>
+        @for(p <- users) {
+            <tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#d4e3e5';">
+                <td>@p.id</td>
+                <td>@p.name</td>
+                @*<td>@p.email</td>*@
+            </tr>
+        }
+        </tbody>
+    </table>
+}
