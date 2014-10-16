@@ -1,6 +1,5 @@
 package controllers;
 
-import models.Contact;
 import models.User;
 import play.Logger;
 import play.data.Form;
@@ -8,7 +7,10 @@ import play.data.validation.ValidationError;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Security;
-import views.html.*;
+import views.html.index;
+import views.html.login;
+import views.html.logout;
+import views.html.register;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +19,13 @@ public class Application extends Controller {
 
     @Security.Authenticated(Secured.class)
     public static Result index() {
-        return ok(index.render("index"));
+        String username=session("name");
+        User user = User.find.where().eq("name", session("name")).findUnique();
+        if (user.getIsAdmin()) {
+            return ok(index.render("You are logged in as " + username + "."));
+        }
+        else
+            return ok(index.render("You are logged in as " + username + "."));
     }
 
     @Security.Authenticated(Secured.class)
@@ -35,10 +43,8 @@ public class Application extends Controller {
         if (form.hasErrors()){
             return badRequest(register.render(form));
         }
-        Logger.info(""+form.get().name+", password:"+form.get().password);
         //Safe validation:
         //Make sure there is no such username.
-        Logger.info("Users.findName(form.get().name)  "+Users.findName(form.get().name));
         if (Users.findName(form.get().name)){
             errors.add(new ValidationError(
                     "name",
@@ -48,15 +54,6 @@ public class Application extends Controller {
             form.errors().put("name",errors);
         }
         //Check if proper password.
-        Logger.info("form.get().password.length() "+form.get().password.length());
-        if (form.get().password.length()<3){
-            errors.add(new ValidationError(
-                    "password",
-                    "Password too short.",
-                    new ArrayList<>()
-            ));
-            form.errors().put("password",errors);
-        }
         if (form.hasErrors()){
             Logger.info("Errors:"+errors);
             return badRequest(register.render(form));
@@ -80,25 +77,22 @@ public class Application extends Controller {
     }
 
     public static Result login(){
-        Logger.info("***********************");
-        Logger.info("  1. Application.authenticate()");
         Form<User> form = Form.form(User.class).bindFromRequest();
-        Logger.info("Authenticate2.");
+        List<ValidationError> errors = new ArrayList<>();
         if (form.hasErrors()) {
-            Logger.info("Authentication has failed.");
+            form.reject("You have entered incorrect data.");
             return badRequest(login.render(form));
         } else {
             String name=form.get().name;
             String password=form.get().password;
-            Logger.info("Login form has no errors.");
-            Logger.info("User:"+ form.get().name+"/" + form.get().password);
             if (User.authenticate(name, password) == null) {
-                Logger.info("  name:"+name+", password:"+password);
-                Logger.info("  * end *");
+                errors.add(new ValidationError(
+                        "name",
+                        "Wrong password or user name."));
+                form.errors().put("global",errors
+                );
                 return badRequest(login.render(form));
             }
-            Logger.info("Authentication successful.");
-            Logger.info("User:"+ form.get().name+"/" + form.get().password);
             session().clear();
             session("name", form.get().name);
             return redirect(
@@ -108,62 +102,4 @@ public class Application extends Controller {
     }
 
 
-
-    @Security.Authenticated(Secured.class)
-    public static Result contactsList() {
-
-        List<Contact> contactList;
-
-        User user = User.find.where().eq("name", session("name")).findUnique();
-        contactList = user.getContacts();
-
-        return ok(contacts.render(contactList, user));
-    }
-
-    @Security.Authenticated(Secured.class)
-    public static Result addContactForm(){
-        return ok(addContact.render(Form.form(Contact.class)));
-    }
-
-    @Security.Authenticated(Secured.class)
-    public static Result addContact() {
-        Form<Contact> contactForm = Form.form(Contact.class).bindFromRequest();
-
-        if (contactForm.hasErrors()){
-            return badRequest(addContact.render(contactForm));
-        }
-        else{
-            User user = User.find.where().eq("name", session("name")).findUnique();
-            Contact contact;
-            contact = Form.form(Contact.class).bindFromRequest().get();
-            contact.setUser(user);
-            contact.save();
-            user.addContact(contact);
-            user.save();
-        }
-        return contactsList();
-    }
-
-    public static Result editContact(Long Id) {
-        Form<Contact> contactForm = Form.form(Contact.class).bindFromRequest();
-        Contact contact = Contact.find.byId(Id);
-        contactForm.fill(contact);
-
-        return ok(editContact.render(contactForm, contact));
-    }
-
-    public static Result saveContact(Long Id) {
-        Contact contact;
-        contact = Form.form(Contact.class).bindFromRequest().get();
-        contact.update();
-
-        return contactsList();
-    }
-
-    public static Result deleteContact(Long Id) {
-        Contact contact = Contact.find.byId(Id);
-        contact.delete();
-
-        return contactsList();
-    }
 }

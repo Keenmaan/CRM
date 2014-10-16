@@ -9,25 +9,25 @@ GET         /                    controllers.Application.index()
 GET         /assets/*file        controllers.Assets.at(path="/public", file)
 
 GET         /login               controllers.Application.loginForm()
-
 POST        /login               controllers.Application.login()
 
 GET         /register            controllers.Application.registerForm()
-
 POST        /register            controllers.Application.register()
 
 GET         /logout              controllers.Application.logout()
 
 GET         /users               controllers.Application.usersList()
 
-GET         /contacts            controllers.Application.contactsList()
+GET         /contacts            controllers.Contacts.contactsList()
 
-GET         /addContact          controllers.Application.addContactForm()
+GET         /addContact          controllers.Contacts.addContactForm()
+POST        /addContact          controllers.Contacts.addContact()
 
-POST        /addContact          controllers.Application.addContact()
+GET         /delete              controllers.Contacts.deleteContact(Id: Long)
 
-GET         /delete              controllers.Application.deleteContact(Id: Long)
+GET         /editContact         controllers.Contacts.editContact(Id: Long)
 
-GET         /editContact         controllers.Application.editContact(Id: Long)
+POST        /saveContact         controllers.Contacts.saveContact(Id: Long)
 
-POST        /saveContact         controllers.Application.saveContact(Id: Long)
+GET         /profile             controllers.Profile.profile()
+POST        /upload              controllers.Profile.upload()

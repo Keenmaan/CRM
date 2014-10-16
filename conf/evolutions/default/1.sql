@@ -18,7 +18,7 @@ create table user (
   name                      varchar(255),
   password                  varchar(255),
   is_admin                  boolean not null,
-  photo                     varchar(255),
+  image                     varchar(255),
   constraint uq_user_name unique (name),
   constraint pk_user primary key (id))
 ;

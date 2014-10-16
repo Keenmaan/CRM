@@ -1,0 +1,29 @@
+@(form : Form[User])
+@main {
+    Edit profile.
+
+    @helper.form(routes.Profile.upload,
+        'enctype -> "multipart/form-data") {
+
+        <input type="file" name="picture">
+
+        <p>
+            <input type="submit">
+        </p>
+
+        <img src="@routes.Assets.at("images/48.jpg")" alt="img">
+        <img src="../assets/images/48.jpg" alt="img">
+        <img src="./assets/images/48.jpg" alt="img">
+        <img src="/assets/images/48.jpg" alt="img">
+        <img src="assets/images/48.jpg" alt="img">
+        <img src="../public/images/48.jpg" alt="img">
+        <img src="./public/images/48.jpg" alt="img">
+        <img src="/public/images/48.jpg" alt="img">
+        <img src="public/images/48.jpg" alt="img">
+        <img src="../data/images/48.jpg" alt="img">
+        <img src="./data/images/48.jpg" alt="img">
+        <img src="/data/images/48.jpg" alt="img">
+        <img src="data/images/48.jpg" alt="img">
+        <img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQt5cX1MS4LsCe9klh1vywhZ0Y7LEt2bESyl3BkPQpsS523Ga7zxQ">
+    }
+}

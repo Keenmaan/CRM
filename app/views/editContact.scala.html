@@ -1,7 +1,7 @@
 @(form: Form[Contact], contact: Contact)
 
 @main {
-    @helper.form(action = routes.Application.saveContact(contact.id), 'class -> "form-signin") {
+    @helper.form(action = routes.Contacts.saveContact(contact.id), 'class -> "form-signin") {
         <h2 class="form-signin-heading">Edit contact</h2>
         <input class="form-control" type="txt" name="name" placeholder="Name" value="@contact.name">
         <input class="form-control" type="txt" name="surname" placeholder="Surname" value="@contact.surname">

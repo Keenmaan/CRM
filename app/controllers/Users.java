@@ -28,8 +28,8 @@ public class Users extends Controller {
 
     public static void createUser(String name, String password, boolean isAdmin){
         User user=new User();
-        user.setName(name);
-        user.setPassword(password);
+        user.name=name;
+        user.password=Hasher.getHash(password, "md5");
         if (isAdmin)
             user.setIsAdmin();
         user.save();
@@ -51,5 +51,17 @@ public class Users extends Controller {
             return false;
         else
             return true;
+    }
+
+    public static boolean checkIsAdmin(){
+        User user = User.find.where().eq("name", session("name")).findUnique();
+        if (user!=null)
+            return user.getIsAdmin();
+        else
+            return false;
+    }
+
+    public static User getCurrentUser(){
+        return User.find.where().eq("name", session("name")).findUnique();
     }
 }

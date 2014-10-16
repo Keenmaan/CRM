@@ -4,24 +4,34 @@
     @helper.form(routes.Application.login, 'class -> "form-signin") {
         <h2 class="form-signin-heading">Log in</h2>
         @helper.inputText(form("name"),
-            'class ->"form-control",
-            'type -> "text",
-            'placeholder -> "Name",
-            'label ->""
+            'class -> "form-control",
+            'placeholder -> "Enter name",
+            '_label -> "Name:",
+            '_showConstraints -> false,
+            '_showErrors -> false
         )
         @helper.inputPassword(form("password"),
-            'class ->"form-control",
-            'type -> "password",
-            'placeholder -> "Password",
-            'label ->""
+            'class -> "form-control",
+            'placeholder -> "Enter password",
+            '_label -> "Password:",
+            '_showConstraints -> false,
+            '_showErrors -> false
         )
-        @*<input class="form-control" type="text" name="name" placeholder="Name" value="@form("name").value">*@
-        @*<input class="form-control" type="password" name="password" placeholder="Password">*@
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+       <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+        @for(error <- form("global").errors) {
+            <div class="alert alert-danger">
+                <button type="button" class="close" data-dismiss="alert">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span></button>
+                @error.message
+            </div>
+        }
         @if(form.hasGlobalErrors) {
             <div class="alert alert-danger">
-                <a href="#" class="close" data-dismiss="alert">&times;</a>
-                <strong>Error </strong>@form.globalError.message
+                <button type="button" class="close" data-dismiss="alert">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span></button>
+                <strong>Error. </strong>@form.globalError.message
             </div>
         }
     }

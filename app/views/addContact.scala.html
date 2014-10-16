@@ -1,6 +1,6 @@
 @(form: Form[Contact])
 @main {
-@helper.form(routes.Application.addContact, 'class -> "form-signin") {
+@helper.form(routes.Contacts.addContact, 'class -> "form-signin") {
     <h2 class="form-signin-heading">Add new contact</h2>
     <input class="form-control" type="txt" name="name" placeholder="Name" value="@form("name").value">
     <input class="form-control" type="txt" name="surname" placeholder="Surname" value="@form("surname").value">
