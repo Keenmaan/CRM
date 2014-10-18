@@ -1,0 +1,24 @@
+<ul class="nav navbar-nav navbar-right">
+    @if(controllers.Users.getCurrentUser()!=null) {
+        <li><img src="assets/images/48.jpg" alt="img" height="48"></li>
+    }
+    @if(controllers.Users.getCurrentUser()==null) {
+        <li><a href="/login">Log in</a></li>
+        <li><a href="/register">Register</a></li>
+    } else {
+    <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                @controllers.Users.getCurrentUserName()
+                <span class="caret"></span></a>
+        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+            <li><a href="/contacts">Contacts</a></li>
+            @admin()
+            <li class="divider"></li>
+            <li><a href="/profile">Edit your profile</a></li>
+            <li><a href="/register">Create a new account</a></li>
+            <li class="divider"></li>
+            <li><a href="/logout">Log out</a></li>
+        </ul>
+    </li>
+     }
+</ul>

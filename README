@@ -1,4 +1,34 @@
-This is your new Play application
-=================================
 
-This file will be packaged with your application, when using `activator dist`.
+Customer Relationship Management application. Demo.
+===================================================
+
+
+How to run:
+
+1. Clone the app
+
+    (if you have git installed, on linux:)
+    git clone http://github.com/Keenmaan/CRM
+
+2. Run the app from proper directory
+
+    cd CRM
+    ~/CRM> activator run
+
+3. Access the app at http://localhost:9000
+
+
+******************
+Technologies used:
+==================
+
+Play 2.3.4
+Jdk 1.8
+sbt 0.13.6
+Ebean
+JDBC
+H2 db
+
+
+
+In case I haven't covered everything, check the code(especially configuration files).

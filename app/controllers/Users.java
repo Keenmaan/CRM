@@ -64,4 +64,8 @@ public class Users extends Controller {
     public static User getCurrentUser(){
         return User.find.where().eq("name", session("name")).findUnique();
     }
+
+    public static String getCurrentUserName(){
+        return User.find.where().eq("name", session("name")).findUnique().name;
+    }
 }

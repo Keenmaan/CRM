@@ -2,7 +2,8 @@
 @main {
     <div class="container">
     @helper.form(routes.Application.login, 'class -> "form-signin") {
-        <h2 class="form-signin-heading">Log in</h2>
+        <h2 class="form-signin-heading" align="center">Log in</h2>
+        <br>
         @helper.inputText(form("name"),
             'class -> "form-control",
             'placeholder -> "Enter name",

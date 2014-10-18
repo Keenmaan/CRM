@@ -1,7 +1,7 @@
 @(contacts: List[Contact], user: User)
 
 @main {
-    <table>
+    <table class="table table-bordered table-condensed table-hover table-responsive">
         <thead>
             <tr>
                 <th>name</th>
@@ -13,7 +13,7 @@
         </thead>
         <tbody>
         @for(p <- contacts) {
-            <tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#d4e3e5';">
+            <tr>
                 <td>@p.name</td>
                 <td>@p.surname</td>
                 <td>@p.email</td>
@@ -23,5 +23,5 @@
             }
         </tbody>
     </table>
-    <a href="/addContact">add</a>
+    <a href="/addContact"><span class="glyphicon glyphicon-plus"> add</span></a>
 }
